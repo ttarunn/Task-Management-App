@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const authentication = require('./middleware/middleware');
 const bodyParser = require('body-parser');
 
-dotenv.config()
+dotenv.config();
 app.use(cors());
 
 app.use(bodyParser.json());
