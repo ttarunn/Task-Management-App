@@ -14,10 +14,11 @@ const register = async(req,res) => {
             password: encryptedPassword,
         });
 
-        await newUser.save();
+        const savedUser = await newUser.save();
 
         res.status(201).json({
-            message:"User Registered succesfully!"
+            message:"User Registered succesfully!",
+            user:savedUser
         })
         
     }
