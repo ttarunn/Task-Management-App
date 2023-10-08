@@ -4,16 +4,16 @@ const userSlice = createSlice({
     name: "userSlice",
     initialState: {
         online:false,
-        token:null
+        userData:null
     },
     reducers: {
         login: (state, action) => void(
             state.online = true,
-            state.token = action.payload
+            state.userData = action.payload
         ),
         logout: (state, action) => void(
             state.online = false,
-            state.token = null
+            state.userData = null
         )
     }
 });

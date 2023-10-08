@@ -20,7 +20,7 @@ const Login = () => {
                     headers: { 'content-type': 'application/x-www-form-urlencoded' }
                 });
                  
-                dispatch(login(res.data.token))
+                dispatch(login(res.data))
                 navigate('/')
             } catch (error) {
                 alert('Email or Password Incorrect')

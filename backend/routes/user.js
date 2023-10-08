@@ -33,8 +33,8 @@ const login = async (req,res) => {
     
     try{
         const user = await User.findOne( { email:req.body.email } );
-        const validate = await bcrypt.compare(req.body.password, user.password);
-        
+        if(user){
+            const validate = await bcrypt.compare(req.body.password, user.password);
         //if user validate true then jwt token will be generated
         if(validate){
             const jwkToken = jwt.sign({
@@ -47,11 +47,16 @@ const login = async (req,res) => {
             
             res.status(200).json({
                 message:"Success",
-                token: jwkToken
+                user: user
             })
         }else{
             res.status(400).json({
                 message:"Wrong Credential!"
+            })
+        }
+        }else{
+            res.status(400).json({
+                message:"User Not Found"
             })
         }
     }

@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Login, Signup, ListTask, Addtask } from './components';
+import { Login, Signup, ListTask, Addtask, Home } from './components';
 import { Provider } from 'react-redux';
 import store from './store/store';
 
@@ -13,6 +13,10 @@ const router = createBrowserRouter([
     path:'/',
     element:<App/>,
     children: [
+      {
+        path:'/',
+        element:<Home/>
+      },
       {
         path:'/login',
         element:<Login/>
