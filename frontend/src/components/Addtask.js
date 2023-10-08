@@ -9,15 +9,23 @@ const Addtask = () => {
     description:''
   });
   const navigate = useNavigate()
+  const userData = useSelector((store)=> store.user.userData);
+
+  const token = userData.user.token;
+
   const URL = process.env.REACT_APP_SERVER_URL
   const handleSubmit = async(e)=> {
     e.preventDefault();
+    console.log(userData.user)
     try {
       if(taskData.title && taskData.description){
         const res = await axios.post(`${URL}task/create`, taskData, {
-          headers: { 'content-type': 'application/x-www-form-urlencoded' }
+          headers: { 
+            'content-type': 'application/x-www-form-urlencoded',
+            'Authorization': token
+          }
         });
-        navigate('/home')
+        navigate('/list-task')
       }else{
         alert('All fields are required!')
       }
@@ -34,7 +42,7 @@ const Addtask = () => {
         <label className='inline-block mb-1 pl-1' 
             htmlFor='title'>Title :</label>
         <input
-            type='password'
+            type='text'
             className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full`}
             placeholder='type your title here'
             id='title'

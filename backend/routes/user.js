@@ -47,6 +47,7 @@ const login = async (req,res) => {
             
             res.status(200).json({
                 message:"Success",
+                token:jwkToken,
                 user: user
             })
         }else{
