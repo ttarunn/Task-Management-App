@@ -3,7 +3,9 @@ import { Button, Logo } from "./index"
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../store/userSlice';
+import { login, addToken } from '../store/userSlice';
+
+
 const Login = () => {
     const [data, setData] = useState({
         email:'',
@@ -20,7 +22,9 @@ const Login = () => {
                     headers: { 'content-type': 'application/x-www-form-urlencoded' }
                 });
                  
-                dispatch(login(res.data))
+                dispatch(login(res.data));
+                dispatch(addToken(res.data.token))
+                localStorage.setItem('token', res.data.token)
                 navigate('/')
             } catch (error) {
                 alert('Email or Password Incorrect')
@@ -34,7 +38,7 @@ const Login = () => {
     <div className='w-1/2 items-center text-center justify-center mx-auto mt-5'>
         <Logo className='m-6'/>
         <h2 className="text-center text-2xl font-bold leading-tight my-5">
-          Sign up to create account
+          Sign In to your account
         </h2>
         <p className="my-4 text-center text-base text-black/60">
         Don&apos;t have any account?&nbsp;

@@ -3,7 +3,7 @@ import { Logo, Logout } from "./index"
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const Header = () => {
-    const authStatus = useSelector((store)=> store.user.online);
+    const authStatus = localStorage.getItem('token');
         
     const navigate = useNavigate();
     const navItems = [

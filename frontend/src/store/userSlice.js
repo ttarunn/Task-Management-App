@@ -14,10 +14,14 @@ const userSlice = createSlice({
         logout: (state, action) => void(
             state.online = false,
             state.userData = null
-        )
+        ),
+        addToken: (state, action) => void(
+            state.token = action.payload
+        ),
+
     }
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, addToken } = userSlice.actions;
 
 export default userSlice.reducer;

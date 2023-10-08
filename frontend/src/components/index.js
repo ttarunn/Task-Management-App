@@ -7,6 +7,8 @@ import Logout from "./Logout";
 import ListTask from "./ListTask";
 import Addtask from "./Addtask";
 import Home from "./Home";
+import TaskCard from "./TaskCard";
+import ViewTask from "./ViewTask";
 export {
     Home,
     Header,
@@ -16,5 +18,7 @@ export {
     Signup,
     Logout,
     ListTask,
-    Addtask
+    Addtask,
+    TaskCard,
+    ViewTask
 }

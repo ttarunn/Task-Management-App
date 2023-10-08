@@ -1,30 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from "./index"
 import { useSelector } from 'react-redux'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+
 const Addtask = () => {
   const [taskData, setTaskData] = useState({
     title:'',
     description:''
   });
-  const navigate = useNavigate()
-  const userData = useSelector((store)=> store.user.userData);
 
-  const token = userData.user.token;
+  const [task, setTask] = useState({})
+  const location = useLocation();
+  const id = location.pathname.split(":")[1];
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token');
 
   const URL = process.env.REACT_APP_SERVER_URL
   const handleSubmit = async(e)=> {
     e.preventDefault();
-    console.log(userData.user)
+  
     try {
-      if(taskData.title && taskData.description){
-        const res = await axios.post(`${URL}task/create`, taskData, {
-          headers: { 
-            'content-type': 'application/x-www-form-urlencoded',
-            'Authorization': token
-          }
-        });
+      if((taskData.title || task.title) && (taskData.description || task.description)){
+        if(id){
+          const res = await axios.put(`${URL}task/updatetask/${id}`, task, {
+            headers: { 
+              'content-type': 'application/x-www-form-urlencoded',
+              'Authorization': token
+            }
+          });
+        }else{
+          const res = await axios.post(`${URL}task/create`, taskData, {
+            headers: { 
+              'content-type': 'application/x-www-form-urlencoded',
+              'Authorization': token
+            }
+          });
+        }
         navigate('/list-task')
       }else{
         alert('All fields are required!')
@@ -32,11 +45,32 @@ const Addtask = () => {
     } catch (error) {
       alert('Some error occured')
     }
-  }
-    const authStatus = useSelector(store => store.user.online);
-    // if(!authStatus){
-    //     return <h1>Please Logged in to post or view your tasks</h1>
-    // }
+  };
+
+  const getTask = async () => {
+    try {
+      const res = await axios.get(`${URL}task/gettasks/${id}`, {
+        headers: { Authorization: token },
+      });
+
+      setTask(res.data.tasks[0]);
+      // setLoading(false)
+    } catch (error) {
+      // setLoading(true)
+    }
+  };
+  useEffect(() => {
+    if(id){
+      getTask();
+    }
+  }, []);
+
+
+    // const authStatus = useSelector(store => store.user.online);
+    // const localToken = localStorage.getItem('token')
+    if(!token){
+        return <h1>Please Logged in to post or view your tasks</h1>
+    }
   return (
     <form className='w-1/2 items-center text-center justify-center mx-auto mt-5' onSubmit={(e)=> handleSubmit(e)}>
         <label className='inline-block mb-1 pl-1' 
@@ -46,16 +80,24 @@ const Addtask = () => {
             className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full`}
             placeholder='type your title here'
             id='title'
-            value={taskData.title}
+            value={id ? task.title : taskData.title}
             onChange={(e)=> {
-              setTaskData({
-                ...taskData,
-                title:e.target.value
-              })
+              if(id){
+                setTask({
+                  ...task,
+                  title:e.target.value.slice(0,25)
+                })
+              }else{
+                setTaskData({
+                  ...taskData,
+                  title:e.target.value.slice(0,40)
+                })
+              }
             }}
             required
             />
-            <label className='inline-block mb-1 pl-1' 
+            <p>Title length should not be greater than 40 letters</p>
+            <label className='inline-block mb-1 mt-5 pl-1' 
             htmlFor='description'>Description :</label>
         <textarea
         rows={8}
@@ -63,16 +105,23 @@ const Addtask = () => {
             className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full`}
             placeholder='type your description here'
             id='description'
-            value={taskData.description}
+            value={id ? task.description : taskData.description}
             onChange={(e)=> {
-              setTaskData({
-                ...taskData,
-                description:e.target.value
-              })
+              if(id){
+                setTask({
+                  ...task,
+                  description:e.target.value
+                })
+              }else{
+                setTaskData({
+                  ...taskData,
+                  description:e.target.value
+                })
+              }
             }}
             required
             />
-            <Button type='submit' className='w-full mt-5'>Save Task</Button>
+            <Button type='submit' className='w-full mt-5'>{id ? 'Update' : 'Save'} Task</Button>
     </form>
   )
 }

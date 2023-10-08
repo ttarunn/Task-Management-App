@@ -30,6 +30,13 @@ const createTask = async(req,res) => {
 };
 
 const getTasks = async(req,res) => {
+
+
+    const page = req.query.page;
+    
+    const postPerPage = 3;
+
+    
     const user = req.userEmail;
     const id = req.params.id;
     let filter = {
@@ -41,7 +48,12 @@ const getTasks = async(req,res) => {
             author:user
         }
     };
-    await Task.find( filter ).then(result => {
+    const taskData = Task.find( filter )
+    if(page){
+        taskData.skip(postPerPage*(page-1)).limit(postPerPage);
+    }
+
+    taskData.find().then(result => {
         res.status(200).json({
             message:"Tasks Fetched Successfully!",
             tasks:result
@@ -64,16 +76,23 @@ const updateTask = async(req, res) => {
 
     const updatedTask = req.body;
 
-    Task.findOneAndUpdate(filter, updatedTask).then(result => {
-        res.status(201).json({
-            message: "Task Updated Succesfully!",
+    if(updateTask){
+        Task.findOneAndUpdate(filter, updatedTask).then(result => {
+            res.status(201).json({
+                message: "Task Updated Succesfully!",
+            })
+        }).catch(err => {
+            res.status(500).json({
+                message: "Unable to Update Task!",
+                err:err
+            })
         })
-    }).catch(err => {
+    }else{
         res.status(400).json({
             message: "Unable to Update Task!",
             err:err
         })
-    })
+    }
 };
 
 
