@@ -24,6 +24,14 @@ The frontend is built using React and provides a user-friendly interface for man
 
 - API Interaction: Axios is used to interact with the backend API, ensuring seamless communication between the frontend and backend.
 
+- **Infinite Scroll Implementation:**
+
+   This project incorporates the convenient feature of infinite scroll, ensuring a seamless and uninterrupted browsing experience as users explore the content.
+
+**Note:** You can check the infinite scroll feature by logging in using the following details.
+   - email: one@one.com
+   - password: 12345
+
 # Getting Started
 
 To run the application locally, follow these steps:
