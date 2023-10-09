@@ -53,7 +53,7 @@ const ViewTask = () => {
     return <h1>Please Logged in to post or view your tasks</h1>
 }
   return (
-    <div className="sm:w-1/2 w-full flex justify-center mb-4 mt-5 relative m-auto rounded-xl p-2 flex-col">
+    <div className="sm:w-1/2 w-[85%] flex justify-center mb-4 mt-5 relative m-auto rounded-xl p-2 flex-col">
       <div>
       <h1 className="text-center font-bold text-2xl mt-10">{task.title}</h1>
       <p className="text-justify font-extralight text-xl h-[80%] mt-5">{task.description}</p>

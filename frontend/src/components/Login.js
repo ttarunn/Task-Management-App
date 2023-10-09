@@ -27,7 +27,7 @@ const Login = () => {
                 localStorage.setItem('token', res.data.token)
                 navigate('/')
             } catch (error) {
-                alert('Email or Password Incorrect')
+                alert('Internal Server Error')
             }
         }else{
             return alert('Please Filled All Required Filled')
@@ -35,7 +35,7 @@ const Login = () => {
     };
 
   return (
-    <div className='w-1/2 items-center text-center justify-center mx-auto mt-5'>
+    <div className='sm:w-1/2 items-center text-center justify-center mx-auto mt-5 w-[90%]'>
         <h2 className="text-center text-2xl font-bold leading-tight my-5">
           Sign In to your account
         </h2>

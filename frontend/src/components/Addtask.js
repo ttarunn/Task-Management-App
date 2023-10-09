@@ -72,7 +72,7 @@ const Addtask = () => {
         return <h1>Please Logged in to post or view your tasks</h1>
     }
   return (
-    <form className='w-1/2 items-center text-center justify-center mx-auto mt-5' onSubmit={(e)=> handleSubmit(e)}>
+    <form className='sm:w-1/2 items-center text-center justify-center mx-auto mt-5 w-[85%] my-auto' onSubmit={(e)=> handleSubmit(e)}>
         <label className='inline-block mb-1 pl-1' 
             htmlFor='title'>Title :</label>
         <input
