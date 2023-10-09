@@ -30,7 +30,7 @@ To run the application locally, follow these steps:
 
 - Clone the Repository: Clone this repository to your local machine.
 
-        git clone https://github.com/your-username/task-management-app.git
+        git clone https://github.com/ttarunn/Task-Management-App
 
 - Backend Setup: Navigate to the backend directory and follow the instructions in the README.md file to set up and run the backend server.
 
