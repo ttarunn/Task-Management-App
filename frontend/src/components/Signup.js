@@ -32,7 +32,7 @@ const Signup = () => {
 
   return (
     <div className='w-1/2 items-center text-center justify-center mx-auto mt-5'>
-        <Logo className='m-6'/>
+        
         <h2 className="text-center text-2xl font-bold leading-tight my-5">
           Sign up to create account
         </h2>

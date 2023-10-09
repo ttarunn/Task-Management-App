@@ -39,6 +39,7 @@ const getTasks = async(req,res) => {
     
     const user = req.userEmail;
     const id = req.params.id;
+    
     let filter = {
         author:user,
     };
@@ -48,12 +49,12 @@ const getTasks = async(req,res) => {
             author:user
         }
     };
-    const taskData = Task.find( filter )
+    const taskData = Task.find(filter);
     if(page){
         taskData.skip(postPerPage*(page-1)).limit(postPerPage);
     }
 
-    taskData.find().then(result => {
+    taskData.then(result => {
         res.status(200).json({
             message:"Tasks Fetched Successfully!",
             tasks:result
@@ -83,7 +84,7 @@ const updateTask = async(req, res) => {
             })
         }).catch(err => {
             res.status(500).json({
-                message: "Unable to Update Task!",
+                message: "Internal Server Error",
                 err:err
             })
         })

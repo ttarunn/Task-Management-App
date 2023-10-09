@@ -17,13 +17,14 @@ const register = async(req,res) => {
         const savedUser = await newUser.save();
 
         res.status(201).json({
-            message:"User Registered succesfully!",
+            message:"User Registered successfully!",
             user:savedUser
         })
         
     }
     catch (err){
         res.status(500).json({
+            message: 'Something went wrong!',
             err:err
         })
     }

@@ -27,15 +27,17 @@ const ListTask = () => {
     };
 
     const handleScroll = async()=> {
-        var totalHeight = document.documentElement.scrollHeight;
-        var height = window.innerHeight;
-        var scrollTop = document.documentElement.scrollHeight + 1;
-        if(height + scrollTop + 1 >= totalHeight){
+        // console.log('scrollHeight',document.documentElement.scrollHeight);
+        // console.log('innerHeight',window.innerHeight);
+        // console.log('scrollTop',document.documentElement.scrollTop);
+
+        if(window.innerHeight + document.documentElement.scrollTop + 1 > document.documentElement.scrollHeight){
             
             setPage((prev)=> prev+1)
         }
     }
     useEffect(()=> {
+
         window.addEventListener('scroll', handleScroll);
 
         return ()=> window.removeEventListener('scroll', handleScroll);
@@ -52,7 +54,7 @@ const ListTask = () => {
     }
   return (
     <>
-    <h1 className='text-center my-9 text-5xl'>All Tasks</h1>
+    <h1 className='text-center my-9 text-5xl'>All Tasks {tasks.length}</h1>
     <div className='w-full flex flex-row justify-center p-5 gap-10 flex-wrap mt-5'>
         {tasks.length > 0 ? tasks?.map(task => <TaskCard key={task._id} id={task._id} title={task.title} description={task.description}/>) : (
             <div className='flex flex-col items-center justify-center h-[88vh]'>

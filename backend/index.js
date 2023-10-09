@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const authentication = require('./middleware/middleware');
 const bodyParser = require('body-parser');
 
+
 dotenv.config();
 app.use(cors());
 
@@ -18,10 +19,10 @@ const PORT = process.env.PORT || 8080
 
 mongoose.connect(process.env.MONGO_DB_URL)
   .then(() => {
-    console.log("Connected to the database");
+    //console.log("Connected to the database");
   })
   .catch((err) => {
-    console.log("Error in connection", err);
+    //console.log("Error in connection", err);
   });
 
 
@@ -42,5 +43,8 @@ app.use('/', (req, res) => {
 
 
 app.listen(PORT, ()=> {
-    console.log(`Server is listening on ${PORT}`)
-})
+    //console.log(`Server is listening on ${PORT}`)
+});
+
+
+module.exports = app
