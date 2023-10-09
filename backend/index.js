@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose');
@@ -8,6 +9,7 @@ const dotenv = require('dotenv');
 const authentication = require('./middleware/middleware');
 const bodyParser = require('body-parser');
 
+const server = http.createServer(app)
 
 dotenv.config();
 app.use(cors());
@@ -42,8 +44,8 @@ app.use('/', (req, res) => {
   });
 
 
-app.listen(PORT, ()=> {
-    //console.log(`Server is listening on ${PORT}`)
+server.listen(PORT, ()=> {
+    // console.log(`Server is listening on ${PORT}`)
 });
 
 
